@@ -1,0 +1,41 @@
+pragma solidity ^0.6.0;
+pragma experimental ABIEncoderV2;
+
+contract little8 {
+
+    bytes1 a = 0xF0; // 1111 0000
+    bytes1 b = 0x50; // 0101 0000
+    
+    bytes2 a1 = 0xF084; // 1111 0000 1000 0100
+    bytes2 b1 = 0x50EA; // 0101 0000 1110 1010 > 1010 0000 0110 1110
+    
+   
+    
+    // function _randModulus(uint mod) public returns (uint) {
+    //     uint rand = uint(keccak256(abi.encodePacked(
+    //         now, 
+    //         block.difficulty, 
+    //         msg.sender)
+    //     )) % mod;
+    //     nonce++;
+    //     return rand;
+    // }
+    
+    
+    function XOR() public view returns (bytes memory) {
+        bytes memory output = new bytes(2);
+         
+        for (uint i = 0; i < 2; i++) {
+            output[i] = xor(a1[i], b1[i]);
+        }
+        return output;
+    }
+    
+    function xor(byte input_1, byte input_2) public pure returns (byte) { // UI 直接輸入 0xF0
+        return input_1 ^ input_2;
+    }
+    
+    function SHA256(string memory input) public pure returns (bytes32) {
+        return sha256(abi.encodePacked(input)); // ABC b5d4045c3f466fa91fe2cc6abe79232a1a57cdf104f7a26e716e0a1e2789df78
+    }
+}
